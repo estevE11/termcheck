@@ -2,13 +2,16 @@
   "name": "termcheck",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "npx ts-node --esm ./src/scripts/migrate.ts"
   },
   "dependencies": {
+    "@libsql/client": "^0.1.6",
     "@types/node": "18.15.3",
     "@types/react": "18.0.28",
     "@types/react-bootstrap": "^0.32.32",
