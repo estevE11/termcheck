@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Todo from '../interfaces/interfaces';
 import { leftZero } from "@/utils/utils";
 
-const TodoComponent: React.FC<{ todo: Todo }> = ({ todo }) => {
+const TodoComponent: React.FC<{ todo: Todo, selected: boolean }> = ({ todo, selected }) => {
 
     const [date, setDate] = useState("");
 
@@ -15,9 +15,14 @@ const TodoComponent: React.FC<{ todo: Todo }> = ({ todo }) => {
         setDate(`${d}/${m} ${h}:${s}`);
     }, [todo]);
 
+    const style = {
+        textDecoration: todo.done ? "line-through" : "none",
+        backgroundColor: selected ? "gray" : "black"
+    };
+
     return (
         <>
-            <span>{date} - {todo.name}</span>
+            <span style={style}>{date} - {todo.name}{todo.done ? " ✔" : "" }</span>
         </>
     )
 }

@@ -43,7 +43,7 @@ export default function Home() {
                     list.map((item: Todo, index: number) => (
                         <Row>
                             <Col>
-                                <TodoComponent todo={item}></TodoComponent>
+                                <TodoComponent todo={item} selected={false}></TodoComponent>
                             </Col>
                         </Row>
                     ))
