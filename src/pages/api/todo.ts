@@ -7,6 +7,7 @@ const methodHandlerMap: { [id: string]: (req: NextApiRequest, res: NextApiRespon
 }
 methodHandlerMap["get"] = get;
 methodHandlerMap["post"] = post;
+methodHandlerMap["put"] = put;
 
 export default async function handler(
   req: NextApiRequest,
@@ -48,4 +49,27 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
     
     res.status(200).json({});
     return;
+}
+
+async function put(req: NextApiRequest, res: NextApiResponse) {
+    const client = connect();
+
+    const id: number = req.body.id;
+    delete req.body.id;
+
+    let values: string = '';
+    const keys: string[] = Object.keys(req.body);
+
+    for (let i = 0; i < keys.length - 1; i++) {
+        values += `${keys[i]}='${req.body[keys[i]]}',`;
+    }
+    values += `${keys[keys.length-1]}='${req.body[keys[keys.length-1]]}'`;
+
+    const rs: any = await client.execute(`
+        UPDATE todo
+        SET
+        ${values}
+        WHERE id = ${id};
+    `);
+    res.status(200).json({});
 }
