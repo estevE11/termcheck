@@ -7,6 +7,7 @@ import {
 
 import { useState, useEffect } from "react";
 import Todo from '../interfaces/interfaces';
+import TodoComponent from '../components/TodoComponent';
 
 export default function Home() {
     
@@ -14,7 +15,8 @@ export default function Home() {
 
     useEffect(() => {
         loadItems().then((data: any) => {
-            setList(data.rows as Todo[]);
+            console.log(data);
+            setList(data as Todo[]);
         });
     }, []);
 
@@ -22,8 +24,16 @@ export default function Home() {
         return new Promise((resolve, reject) => {
             const response = fetch("http://localhost:3000/api/todo")
                 .then(response => response.json())
-                .then(data => resolve(data));
+                .then(data => resolve(data.rows.map(formatItem)));
         });
+    }
+
+    const formatItem = (item: Todo): Todo => {
+        if(typeof item.date == "string")
+            item.date = new Date(item.date);
+        if(typeof item.done == "number")
+            item.done = (item.done as number == 1);
+        return item;
     }
 
     return (
@@ -33,7 +43,7 @@ export default function Home() {
                     list.map((item: Todo, index: number) => (
                         <Row>
                             <Col>
-                                <span>{item.name}</span>
+                                <TodoComponent todo={item}></TodoComponent>
                             </Col>
                         </Row>
                     ))
