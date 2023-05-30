@@ -2,9 +2,10 @@ import { useEffect, useRef } from 'react';
 
 function useEventListener<T extends Event>(
     eventName: string,
-    handler: (event: T) => void,
-    element: HTMLElement | Window = window
+    handler: (event: T) => void
 ): void {
+    if (typeof window === 'undefined') return;
+    const element = window;
     const savedHandler = useRef<(event: T) => void>();
 
     useEffect(() => {
