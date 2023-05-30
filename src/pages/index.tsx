@@ -8,14 +8,15 @@ import {
 import { useState, useEffect } from "react";
 import Todo from '../interfaces/interfaces';
 import TodoComponent from '../components/TodoComponent';
+import useEventListener from "@/hooks/useEventListener";
 
 export default function Home() {
     
     const [list, setList] = useState([] as Todo[]);
+    const [selected, setSelected] = useState(0);
 
     useEffect(() => {
         loadItems().then((data: any) => {
-            console.log(data);
             setList(data as Todo[]);
         });
     }, []);
@@ -36,6 +37,19 @@ export default function Home() {
         return item;
     }
 
+    const selectedUp = () => {
+        setSelected(selected - 1);
+    }
+
+    const selectedDown = () => {
+        setSelected(selected + 1);
+    }
+
+    useEventListener("keydown", (event: KeyboardEvent) => {
+        if (event.key == 'j') selectedDown();
+        if (event.key == 'k') selectedUp();
+    });
+
     return (
         <>
             <Container>
@@ -43,7 +57,7 @@ export default function Home() {
                     list.map((item: Todo, index: number) => (
                         <Row>
                             <Col>
-                                <TodoComponent todo={item} selected={false}></TodoComponent>
+                                <TodoComponent todo={item} selected={index == selected}></TodoComponent>
                             </Col>
                         </Row>
                     ))

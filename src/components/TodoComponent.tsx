@@ -16,8 +16,10 @@ const TodoComponent: React.FC<{ todo: Todo, selected: boolean }> = ({ todo, sele
     }, [todo]);
 
     const style = {
+        display: "block",
         textDecoration: todo.done ? "line-through" : "none",
-        backgroundColor: selected ? "gray" : "black"
+        backgroundColor: selected ? "#222" : "black",
+        width: "100%"
     };
 
     return (
