@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import Todo from '../interfaces/interfaces';
 import TodoComponent from '../components/TodoComponent';
 import useEventListener from "@/hooks/useEventListener";
+import { updateTodo } from "@/utils/utils";
 
 export default function Home() {
     
@@ -38,17 +39,37 @@ export default function Home() {
     }
 
     const selectedUp = () => {
+        if (selected == 0) return;
         setSelected(selected - 1);
     }
 
     const selectedDown = () => {
+        if (selected >= list.length - 1) return;
         setSelected(selected + 1);
     }
 
     useEventListener("keydown", (event: KeyboardEvent) => {
         if (event.key == 'j') selectedDown();
         if (event.key == 'k') selectedUp();
+
+        if (event.key == 'Enter') {
+            event.preventDefault();
+            todoToggle(selected);
+        }
     });
+
+    const todoToggle = (index: number) => {
+        let item = list[index];
+        item.done = !item.done;
+        updateTodo({
+            id: item.id,
+            done: item.done ? 1 : 0
+        }).then((data) => {
+            let lst: Todo[] = [...list];
+            lst[index] = { ...item };
+            setList([...lst]);
+        });
+    }
 
     return (
         <>
