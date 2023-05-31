@@ -8,6 +8,7 @@ const methodHandlerMap: { [id: string]: (req: NextApiRequest, res: NextApiRespon
 methodHandlerMap["get"] = get;
 methodHandlerMap["post"] = post;
 methodHandlerMap["put"] = put;
+methodHandlerMap["delete"] = del;
 
 export default async function handler(
   req: NextApiRequest,
@@ -71,4 +72,13 @@ async function put(req: NextApiRequest, res: NextApiResponse) {
         WHERE id = ${id};
     `);
     res.status(200).json({});
+}
+
+async function del(req: NextApiRequest, res: NextApiResponse) {
+    const client = connect();
+
+    const rs: any = await client.execute(`
+        DELETE FROM todo WHERE id=${req.body.id}
+    `);
+    res.status(200).json({ });
 }
