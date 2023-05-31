@@ -10,11 +10,13 @@ import Todo from '../interfaces/interfaces';
 import TodoComponent from '../components/TodoComponent';
 import useEventListener from "@/hooks/useEventListener";
 import { updateTodo } from "@/utils/utils";
+import ModalTodo from "@/components/modals/ModalTodo";
 
 export default function Home() {
     
     const [list, setList] = useState([] as Todo[]);
     const [selected, setSelected] = useState(0);
+    const [modal, setModal] = useState(false);
 
     useEffect(() => {
         loadItems().then((data: any) => {
@@ -49,12 +51,22 @@ export default function Home() {
     }
 
     useEventListener("keydown", (event: KeyboardEvent) => {
+        if (modal) {
+            if(event.key == 'Escape')
+                setModal(false);
+            return;
+        }
+
         if (event.key == 'j' || event.key == 'ArrowDown') selectedDown();
         if (event.key == 'k' || event.key == 'ArrowUp') selectedUp();
 
         if (event.key == 'Enter') {
             event.preventDefault();
             todoToggle(selected);
+        }
+
+        if (!modal && event.key == 'n') {
+            setModal(true);
         }
     });
 
@@ -83,6 +95,7 @@ export default function Home() {
                         </Row>
                     ))
                 }
+                <ModalTodo show={modal} onClose={() => setModal(false)}></ModalTodo>
             </Container>
         </>
     )
