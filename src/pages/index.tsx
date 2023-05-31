@@ -60,7 +60,7 @@ export default function Home() {
         if (event.key == 'j' || event.key == 'ArrowDown') selectedDown();
         if (event.key == 'k' || event.key == 'ArrowUp') selectedUp();
 
-        if (event.key == 'Enter') {
+        if (event.key == 'Enter' || event.key == 'd') {
             event.preventDefault();
             todoToggle(selected);
         }
