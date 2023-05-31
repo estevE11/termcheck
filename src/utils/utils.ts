@@ -2,6 +2,17 @@ export function leftZero(n: number): string {
     return (n < 10 ? '0' : '') + n;
 }
 
+export function isValidDate(dateString: string): boolean {
+    const currentYear = new Date().getFullYear();
+    const regex = /(\d){1,2}\/(\d){1,2}/;
+    return regex.test(dateString);
+}
+
+export function isValidTime(timeString: string): boolean {
+  const regex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+  return regex.test(timeString);
+}
+
 export type UpdateTodoBody = {
     id: number,
     name?: string,
@@ -26,6 +37,17 @@ export function apiGET(route: string): any {
             .then(data => resolve(data))
             .catch(error => err(error));
     });
+}
+
+export type CreateTodoBody = {
+    name: string,
+    date: string
+}
+export function createTodo(body: CreateTodoBody) {
+    return new Promise(async (resolve, reject) => {
+        await apiPOST('/todo', body);
+        resolve({});
+    })
 }
 
 export function apiPOST(route: string, body: any) {
