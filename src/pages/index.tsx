@@ -49,8 +49,8 @@ export default function Home() {
     }
 
     useEventListener("keydown", (event: KeyboardEvent) => {
-        if (event.key == 'j') selectedDown();
-        if (event.key == 'k') selectedUp();
+        if (event.key == 'j' || event.key == 'ArrowDown') selectedDown();
+        if (event.key == 'k' || event.key == 'ArrowUp') selectedUp();
 
         if (event.key == 'Enter') {
             event.preventDefault();
