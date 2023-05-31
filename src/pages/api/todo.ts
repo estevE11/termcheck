@@ -28,7 +28,8 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
     const rs: any = await client.execute(`
         SELECT *
         FROM todo
-        WHERE datetime(date) >= datetime('now', '-4 days');
+        WHERE datetime(date) >= datetime('now', '-4 days')
+        ORDER BY date asc;
     `);
 
     res.status(200).json({ rows: rs.rows })
