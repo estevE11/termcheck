@@ -2,6 +2,11 @@ export function leftZero(n: number): string {
     return (n < 10 ? '0' : '') + n;
 }
 
+export function strLeftZero(n: string): string {
+    if (n.length > 1) return n;
+    return leftZero(parseInt(n));
+}
+
 export function isValidDate(dateString: string): boolean {
     const currentYear = new Date().getFullYear();
     const regex = /(\d){1,2}\/(\d){1,2}/;

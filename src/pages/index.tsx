@@ -40,6 +40,10 @@ export default function Home() {
         return item;
     }
 
+    const addTodo = (item: Todo): void => {
+        setList([...list, item]);
+    }
+
     const selectedUp = () => {
         if (selected == 0) return;
         setSelected(selected - 1);
@@ -95,7 +99,7 @@ export default function Home() {
                         </Row>
                     ))
                 }
-                <ModalTodo show={modal} onClose={() => setModal(false)}></ModalTodo>
+                <ModalTodo show={modal} onClose={() => setModal(false)} onFinish={addTodo}></ModalTodo>
             </Container>
         </>
     )

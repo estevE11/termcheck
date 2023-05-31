@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 
 
 import { useState } from 'react';
-import { CreateTodoBody, createTodo, isValidDate, isValidTime } from '@/utils/utils';
+import { CreateTodoBody, createTodo, isValidDate, isValidTime, strLeftZero } from '@/utils/utils';
 import useEventListener from '@/hooks/useEventListener';
 import Todo from '@/interfaces/interfaces';
 
@@ -18,7 +18,7 @@ type ItemFormData = {
     name: string
 };
         
-const ModalTodo: React.FC<{ show: boolean, onClose: () => void, onFinish?: (todo: Todo) => void }> = ({ show, onClose, onFinish }) => {
+const ModalTodo: React.FC<{ show: boolean, onClose: () => void, onFinish: (todo: Todo) => void }> = ({ show, onClose, onFinish }) => {
     
     const [values, setValues] = useState({
         date: '',
@@ -37,8 +37,14 @@ const ModalTodo: React.FC<{ show: boolean, onClose: () => void, onFinish?: (todo
     const handleCreate = () => { 
         if (!validateData(values)) return;
         const body = parseFormData(values);
-        createTodo(body).then(() => {
-            onClose();
+        createTodo(body).then((data: any) => {
+            const todo: Todo = {
+                id: data.id,
+                name: body.name,
+                date: new Date(body.date),
+                done: false
+            }
+            onFinish(todo);
         })
     }
 
@@ -47,12 +53,12 @@ const ModalTodo: React.FC<{ show: boolean, onClose: () => void, onFinish?: (todo
         const param_time = data.time.split(":");
         const now: Date = new Date();
 
-        const d = param_date[0];
-        const m = param_date[1];
+        const d = strLeftZero(param_date[0]);
+        const m = strLeftZero(param_date[1]);
         const y = now.getFullYear() + ((parseInt(m) < now.getMonth()+1) ? 1 : 0);
 
-        const h = param_time[0];
-        const min = param_time[1];
+        const h = strLeftZero(param_time[0]);
+        const min = strLeftZero(param_time[1]);
 
         const date: string = `${y}-${m}-${d} ${h}:${min}:00`;
 
