@@ -50,8 +50,8 @@ export type CreateTodoBody = {
 }
 export function createTodo(body: CreateTodoBody) {
     return new Promise(async (resolve, reject) => {
-        await apiPOST('/todo', body);
-        resolve({});
+        const response = await apiPOST('/todo', body);
+        resolve(response);
     })
 }
 

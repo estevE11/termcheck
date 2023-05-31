@@ -86,6 +86,7 @@ const ModalTodo: React.FC<{ show: boolean, onClose: () => void, onFinish: (todo:
     }
 
     useEventListener('keydown', (event: KeyboardEvent) => {
+        if (!show) return;
         if (event.key === 'Enter') {
             event.preventDefault();
             handleCreate();
