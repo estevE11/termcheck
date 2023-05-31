@@ -92,36 +92,30 @@ const ModalTodo: React.FC<{ show: boolean, onClose: () => void, onFinish: (todo:
     });
 
     return (
-        <Modal size="lg" show={show} onShow={handleShow} onHide={onClose} centered>
-            <Modal.Header closeButton>
-                <Modal.Title>To Do</Modal.Title>
-            </Modal.Header>
-
-            <Modal.Body>
+        <Modal size="lg" show={show} onShow={handleShow} onHide={onClose} centered animation={false}>
+            <Modal.Body style={{margin: "10px", padding: "0px"}}>
                 <Container>
                     <Row>
-                        <Col sm={ 3 }>
+                        <Col sm={ 2 }>
                             <Form.Label>Date</Form.Label>
                             <Form.Control
                                 type="text"
                                 onChange={(e: any) => {
                                     setValues({ ...values, date: e.target.value });
                                 }}
+                                placeholder='DD/MM'
                             />
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        <Col sm={2}>
                             <Form.Label>Time</Form.Label>
                             <Form.Control
                                 type="text"
                                 onChange={(e: any) => {
                                     setValues({ ...values, time: e.target.value });
                                 }}
+                                placeholder='HH:MM'
                             />
                         </Col>
-                    </Row>
-                    <Row>
                         <Col>
                             <Form.Label>Name</Form.Label>
                             <Form.Control
@@ -134,9 +128,6 @@ const ModalTodo: React.FC<{ show: boolean, onClose: () => void, onFinish: (todo:
                     </Row>
                 </Container>
             </Modal.Body>
-
-            <Modal.Footer>
-            </Modal.Footer>
         </Modal>
     );
 };

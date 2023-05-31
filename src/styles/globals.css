@@ -3,3 +3,25 @@ html, body {
   color: green !important;
   font-family: 'Consolas', monaco, monospace !important;
 }
+
+.modal-dialog * {
+  background-color: black !important;
+  color: green !important;
+}
+
+.modal input {
+  border: 1px solid green !important;
+  font-size: 1rem !important;
+}
+
+.modal-content {
+  border: 1px solid green !important;
+}
+
+.modal-footer, .modal-header {
+  border: none !important;
+}
+
+.modal-backdrop {
+  --bs-backdrop-opacity: 0 !important;
+}
