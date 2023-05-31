@@ -87,6 +87,13 @@ export function apiPUT(route: string, body: any) {
     });
 }
 
+export function deleteTodo(id: number) {
+    return new Promise(async (resolve, reject) => {
+        await apiDELETE("/todo", { id: id });
+        resolve({});
+    });
+}
+
 export function apiDELETE(route: string, body: any) {
     const currentUrl = window.location.href;
     const baseUrl = currentUrl.split('/').slice(0, 3).join('/');

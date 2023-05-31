@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import Todo from '../interfaces/interfaces';
 import TodoComponent from '../components/TodoComponent';
 import useEventListener from "@/hooks/useEventListener";
-import { updateTodo } from "@/utils/utils";
+import { deleteTodo, updateTodo } from "@/utils/utils";
 import ModalTodo from "@/components/modals/ModalTodo";
 
 export default function Home() {
@@ -56,7 +56,7 @@ export default function Home() {
 
     useEventListener("keydown", (event: KeyboardEvent) => {
         if (modal) {
-            if(event.key == 'Escape')
+            if (event.key == 'Escape')
                 setModal(false);
             return;
         }
@@ -71,6 +71,12 @@ export default function Home() {
 
         if (!modal && event.key == 'n') {
             setModal(true);
+        }
+
+        if (event.key == 'Backspace' || event.key == 'Delete') {
+            deleteTodo(list[selected].id);
+            list.splice(selected, 1);
+            setList([...list]);
         }
     });
 
