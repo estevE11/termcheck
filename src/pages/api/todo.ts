@@ -46,9 +46,7 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
             '${req.body.date}'
         )
     `);
-    
-    res.status(200).json({});
-    return;
+    res.status(200).json({ id: Number(rs.lastInsertRowid) });
 }
 
 async function put(req: NextApiRequest, res: NextApiResponse) {
