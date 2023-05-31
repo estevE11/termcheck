@@ -45,6 +45,7 @@ const ModalTodo: React.FC<{ show: boolean, onClose: () => void, onFinish: (todo:
                 done: false
             }
             onFinish(todo);
+            onClose();
         })
     }
 
