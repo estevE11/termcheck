@@ -11,6 +11,7 @@ import TodoComponent from '../components/TodoComponent';
 import useEventListener from "@/hooks/useEventListener";
 import { deleteTodo, updateTodo } from "@/utils/utils";
 import ModalTodo from "@/components/modals/ModalTodo";
+import CalendarComponent from '../components/CalendarComponent';
 
 export default function Home() {
     
@@ -105,6 +106,7 @@ export default function Home() {
                         </Row>
                     ))
                 }
+                <CalendarComponent></CalendarComponent>
                 <ModalTodo show={modal} onClose={() => setModal(false)} onFinish={addTodo}></ModalTodo>
             </Container>
         </>
