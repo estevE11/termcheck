@@ -18,6 +18,21 @@ export function isValidTime(timeString: string): boolean {
   return regex.test(timeString);
 }
 
+export const strMonth = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+];
+
 export type UpdateTodoBody = {
     id: number,
     name?: string,
