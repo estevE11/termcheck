@@ -59,10 +59,8 @@ const CalendarComponent: React.FC<{}> = ({ }) => {
                 {days.map((week: number[]) => (
                     <Row>
                         {week.map((day: number) => (
-                            <Col>
-                                {day == 0 ? '' : (
-                                   <>{day != today ? day : <b>{ day }</b>}</> 
-                                )}
+                            <Col style={{ color: today == day ? '#99ff99' : 'green'}}>
+                                {day == 0 ? '' : day}
                             </Col>
                         ))}
                     </Row>
