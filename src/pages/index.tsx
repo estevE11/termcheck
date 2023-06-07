@@ -97,18 +97,24 @@ export default function Home() {
     return (
         <>
             <Container>
-                {
-                    list.map((item: Todo, index: number) => (
-                        <Row>
-                            <Col>
-                                <TodoComponent todo={item} selected={index == selected}></TodoComponent>
-                            </Col>
-                        </Row>
-                    ))
-                }
-                <CalendarComponent></CalendarComponent>
-                <ModalTodo show={modal} onClose={() => setModal(false)} onFinish={addTodo}></ModalTodo>
+                <Row>
+                    <Col>
+                        {
+                            list.map((item: Todo, index: number) => (
+                                <Row>
+                                    <Col>
+                                        <TodoComponent todo={item} selected={index == selected}></TodoComponent>
+                                    </Col>
+                                </Row>
+                            ))
+                        }
+                    </Col>
+                    <Col>
+                        <CalendarComponent></CalendarComponent>
+                    </Col>
+                </Row>
             </Container>
+            <ModalTodo show={modal} onClose={() => setModal(false)} onFinish={addTodo}></ModalTodo>
         </>
     )
 }
