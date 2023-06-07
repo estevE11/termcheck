@@ -33,6 +33,15 @@ async function createTables() {
             done integer default 0
         )
     `);
+
+    await execute(`
+        create table users (
+            id integer primary key autoincrement,
+            username varchar(30),
+            password varchar(30),
+            admin integer default 0
+        )
+    `);
 }
 
 async function populate() {
